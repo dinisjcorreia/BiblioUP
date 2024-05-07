@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Livros() {
+  const { user } = useAuth0();
 
     const [messages, setMessages] = useState([]);
   
@@ -11,8 +13,12 @@ export default function Livros() {
     }, []);
 
     return (
+      
      <>
+  
+
         <div className="flex flex-wrap justify-center space-x-4 mt-6">
+    
             {messages.map(message => (
             
                 <div className="card w-1/4 bg-base-100 shadow-xl">
@@ -21,7 +27,7 @@ export default function Livros() {
                     <h2 className="card-title">{message.titulo}</h2>
                     <p>{message.descricao}</p>
                     <div className="card-actions justify-end">
-                    <button onClick={() => addCarinho(message.id)} className="btn btn-primary">Adicionar ao carrinho</button>
+                    <button onClick={() => window.location.replace('http://localhost:8000/addCarrinho?idlivro='+message.id+'&iduser='+user.sub.split('|')[1])} className="btn btn-primary">Adicionar ao carrinho</button>
                     </div>
                 </div>
                 </div> 
@@ -31,6 +37,4 @@ export default function Livros() {
     );
   }
 
-  function addCarinho(id){
-    window.location.replace('http://localhost:8000/addCarrinho?idlivro='+id+'&iduser=1');
-  }
+ 
