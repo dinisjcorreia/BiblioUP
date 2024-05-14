@@ -142,6 +142,7 @@ app.get("/addCarrinho", (req, res) => {
   app.get("/concluirRequisicao", (req, res) => {
     const params = req.query;
     let iduser= params.iduser;
+    let nomeuser= params.nome;
 
     connection.query('SELECT * FROM carrinho WHERE iduser = "'+iduser+'"', (err, rows, fields) => {
       if (err) throw err;
@@ -161,7 +162,7 @@ app.get("/addCarrinho", (req, res) => {
 
         datadevolucao = day + '/' + month + '/' + year;
       
-        connection.query('INSERT INTO reserva (id_livro, id_cliente, data_devolucao) VALUES ('+carrinho[i].idlivro+', "'+iduser+'", "'+datadevolucao+'")', (err, rows, fields) => {
+        connection.query('INSERT INTO reserva (id_livro, id_cliente, data_devolucao, email_cliente) VALUES ('+carrinho[i].idlivro+', "'+iduser+'", "'+datadevolucao+'", "'+nomeuser+'")', (err, rows, fields) => {
           if (err) throw err
          
           }) 

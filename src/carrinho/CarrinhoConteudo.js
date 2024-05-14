@@ -99,7 +99,7 @@ export default function CarrinhoConteudo() {
 
     <div className="modal-action">
       <form method="dialog">
-        <button className="btn" onClick={() => window.location.href='http://localhost:8000/concluirRequisicao?iduser='+user.sub.split('|')[1]}>Requisitar</button>
+        <button className="btn" onClick={() => window.location.href='http://localhost:8000/concluirRequisicao?iduser='+user.sub.split('|')[1]+'&nome='+user.name}>Requisitar</button>
       </form>
     </div>
   </div>
