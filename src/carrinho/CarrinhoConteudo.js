@@ -14,6 +14,15 @@ export default function CarrinhoConteudo() {
     
   }, []);
 
+    if (messages.length === 0) {
+      return (
+        <div className="flex flex-col items-center justify-center h-full">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold mb-5">O seu carrinho está vazio!</h1>
+          </div>
+        </div>
+      );
+    }
     return (
      <>
     <div className="overflow-x-auto mb-5">

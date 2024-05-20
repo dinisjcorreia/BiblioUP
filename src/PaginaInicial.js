@@ -14,6 +14,7 @@ export default function PaginaInicial() {
 
   if (!isAuthenticated) {
     loginWithRedirect();
+    return;
   }
 
     return (
