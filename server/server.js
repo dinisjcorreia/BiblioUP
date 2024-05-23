@@ -54,9 +54,20 @@ app.get("/carrinho", (req, res) => {
               if (err) reject(err);
     
               carrinho[i].id_autor = rows[0].nome;
+
+              connection.query('SELECT * FROM editora WHERE id = '+carrinho[i].id_editora, (err, rows, fields) => {
+                if (err) reject(err);
+      
+                carrinho[i].id_editora = rows[0].nome;
+                console.log(carrinho[i].id_editora);
+      
+               
     
-              resolve(); 
+                resolve(); 
+              });
             });
+
+            
           });
         })
       );
