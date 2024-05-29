@@ -22,7 +22,40 @@ connection.connect()
 
 
 app.get("/livros", (req, res) => {
-  connection.query('SELECT * FROM livros WHERE ativo = 1', (err, rows, fields) => {
+  const params = req.query;
+
+  let pesquisa = params.pesquisa;
+
+  let sort = 'titulo';
+  let ordenacao = "ASC";
+
+ if (params.sort!= undefined) {
+   sort = params.sort;
+ }
+
+ switch (sort){
+  case 'tituloasc': sort = 'titulo'; ordenacao = 'ASC'; break;
+  case 'titulodesc': sort = 'titulo'; ordenacao = 'DESC'; break;
+  case 'autorasc': sort = 'id_autor'; ordenacao = 'ASC'; break;
+  case 'autordesc': sort = 'id_autor'; ordenacao = 'DESC'; break;
+  case 'generoasc': sort = 'id_genero'; ordenacao = 'ASC'; break;
+  case 'generodesc': sort = 'id_genero'; ordenacao = 'DESC'; break;
+ }
+
+  let stringpesquisa;
+
+
+  console.log(pesquisa);
+  if (pesquisa!= undefined && pesquisa!= 'nada') {
+    stringpesquisa =' AND titulo LIKE "%'+pesquisa+'%"';
+  }
+  else {
+    stringpesquisa = '';
+  }
+
+
+  console.log(stringpesquisa);
+  connection.query('SELECT * FROM livros WHERE ativo = 1'+stringpesquisa+' ORDER BY '+sort+' '+ordenacao, (err, rows, fields) => {
     if (err) throw err
 
     res.json({ message: rows });
@@ -54,9 +87,20 @@ app.get("/carrinho", (req, res) => {
               if (err) reject(err);
     
               carrinho[i].id_autor = rows[0].nome;
+
+              connection.query('SELECT * FROM editora WHERE id = '+carrinho[i].id_editora, (err, rows, fields) => {
+                if (err) reject(err);
+      
+                carrinho[i].id_editora = rows[0].nome;
+                console.log(carrinho[i].id_editora);
+      
+               
     
-              resolve(); 
+                resolve(); 
+              });
             });
+
+            
           });
         })
       );

@@ -61,11 +61,11 @@ export default function CarrinhoConteudo() {
           </div>
         </td>
         <td>
-        {message.titulo}
+        {message.id_autor}
           
           
         </td>
-        <td>{message.titulo}</td>
+        <td>{message.id_editora}</td>
         <th>
         <button className="btn btn-ghost btn-xs" onClick={() => window.location.href='http://localhost:8000/removeCarrinho?idlivro='+message.id+'&iduser='+user.sub.split('|')[1]}>Remover</button>
         </th>
